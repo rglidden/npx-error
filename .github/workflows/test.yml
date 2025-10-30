@@ -23,7 +23,7 @@ jobs:
               if: ${{ matrix.node == '24' }}
             - run: npm -v
             - run: npm config list
-            - run: npx --yes ${{ matrix.package }} --version
+            - run: npx --loglevel silly --yes ${{ matrix.package }} --version
               continue-on-error: true
             - run: Get-Content C:\npm\cache\_logs\*.log
               if: ${{ matrix.node == '24' && matrix.os == 'windows-latest' }} 

@@ -26,4 +26,5 @@ jobs:
             - run: npx --yes ${{ matrix.package }} --version
               continue-on-error: true
             - run: Get-Content C:\npm\cache\_logs\*.log
+              if: ${{ matrix.node == '24' && matrix.os == 'windows-latest' }} 
               shell: pwsh 

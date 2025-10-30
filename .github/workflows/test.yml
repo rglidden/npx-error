@@ -24,3 +24,6 @@ jobs:
             - run: npm -v
             - run: npm config list
             - run: npx --yes ${{ matrix.package }} --version
+              continue-on-error: true
+            - run: Get-Content C:\npm\cache\_logs\*.log
+              shell: pwsh 

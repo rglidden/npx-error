@@ -1,0 +1,26 @@
+name: Reproduce npx ECOMPROMISED error
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test:
+        continue-on-error: true
+        strategy:
+            matrix:
+                os: ['windows-latest', 'ubuntu-latest']
+                node: ['22', '24']
+                package: ['jest']
+        name: ${{ matrix.package }} on ${{ matrix.os }} with Node ${{ matrix.node }} 
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - run: npm install -g npm@latest
+              if: ${{ matrix.node == '24' }}
+            - run: npm -v
+            - run: npm config list
+            - run: npx --yes ${{ matrix.package }} --version
